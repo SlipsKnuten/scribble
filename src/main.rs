@@ -1,10 +1,13 @@
+use rand::Rng;
+use chrono::Local;
+
 
 fn main() {
-
+    randomize_number();
     //odd_or_even();
     //largest_smallest();
     //duplicates();
-    sum_of_even();
+    //sum_of_even();
 }
 
 fn largest_smallest(){
@@ -66,5 +69,15 @@ fn sum_of_even(){
     }
 
     println!("Sum of even: {}", total);
+
+}
+
+fn randomize_number(){
+    let mut rng = rand::thread_rng();
+    let num: i32 = rng.gen_range(1..=10);
+    let now = Local::now();
+
+    println!("Random number: {}", num);
+    println!("Current time: {}", now.format("%Y-%m-%d %H:%M:%S"));
 
 }
