@@ -2,14 +2,21 @@ use rand::Rng;
 use chrono::Local;
 use std::io;
 
+use std::sync::mpsc::{Sender, Receiver};
+use std::sync::mpsc;
+use std::thread;
 
 fn main() {
-    dice_game();
+    //dice_game();
     //randomize_number();
     //odd_or_even();
     //largest_smallest();
     //duplicates();
     //sum_of_even();
+    let (rx, handle) = channels();
+    let received = rx.recv().expect("Failed to receive message");
+    println!("Message received: {}", received);
+    handle.join().unwrap();
 }
 
 fn largest_smallest(){
@@ -114,4 +121,15 @@ fn dice_game(){
         }
     }
     
+}
+
+fn channels() -> (mpsc::Receiver<String>, thread::JoinHandle<()>) {
+    let (tx, rx) = mpsc::channel();
+
+    let handle = thread::spawn(move || {
+        let msg = String::from("Message from thread!");
+        tx.send(msg).expect("Failed to send message");
+    });
+
+    (rx, handle)
 }
