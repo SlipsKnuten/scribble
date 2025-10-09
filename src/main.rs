@@ -3,7 +3,8 @@ fn main() {
 
     //odd_or_even();
     //largest_smallest();
-    duplicates();
+    //duplicates();
+    sum_of_even();
 }
 
 fn largest_smallest(){
@@ -52,4 +53,18 @@ fn duplicates(){
         }
     }
     println!("Unique numbers: {:?}", unique_numbers);
+}
+
+fn sum_of_even(){
+    let numbers = vec![5, 10, 15, 20, 25, 30];
+    let mut total = 0;
+
+    for num in &numbers {
+        if num % 2 == 0 {
+            total += num;
+        }
+    }
+
+    println!("Sum of even: {}", total);
+
 }
