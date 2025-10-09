@@ -1,9 +1,11 @@
 use rand::Rng;
 use chrono::Local;
+use std::io;
 
 
 fn main() {
-    randomize_number();
+    dice_game();
+    //randomize_number();
     //odd_or_even();
     //largest_smallest();
     //duplicates();
@@ -80,4 +82,36 @@ fn randomize_number(){
     println!("Random number: {}", num);
     println!("Current time: {}", now.format("%Y-%m-%d %H:%M:%S"));
 
+}
+
+fn dice_game(){
+    
+    let mut game_active: bool = true;
+    let mut rng = rand::thread_rng();
+
+    let num: i32 = rng.gen_range(1..=10);
+    println!("Random number: {}", num);
+
+
+    while game_active {
+
+        let new_num: i32 = rng.gen_range(1..=10);
+        
+        println!("Go again? y/n");
+
+        let mut input: String = String::new();
+
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Unable to read Stdin");
+
+        
+        if input.trim() == "y" {
+            println!("Random number: {}", new_num);
+        }
+        if input.trim() == "n" {
+            game_active = false
+        }
+    }
+    
 }
