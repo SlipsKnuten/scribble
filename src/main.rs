@@ -2,7 +2,8 @@
 fn main() {
 
     //odd_or_even();
-    largest_smallest();
+    //largest_smallest();
+    duplicates();
 }
 
 fn largest_smallest(){
@@ -38,4 +39,17 @@ fn odd_or_even(){
 
     println!("Even: {:?}", even);
     println!("Odd: {:?}", odd);
+}
+
+
+fn duplicates(){
+    let numbers = vec![1, 3, 3, 7, 1, 5, 5, 5, 9];
+    let mut unique_numbers = Vec::new();
+
+    for num in numbers {
+        if !unique_numbers.contains(&num){
+            unique_numbers.push(num);
+        }
+    }
+    println!("Unique numbers: {:?}", unique_numbers);
 }
