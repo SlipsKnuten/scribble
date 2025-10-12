@@ -13,10 +13,15 @@ fn main() {
     //largest_smallest();
     //duplicates();
     //sum_of_even();
+    filter_even();
+
+    /*
     let (rx, handle) = channels();
     let received = rx.recv().expect("Failed to receive message");
     println!("Message received: {}", received);
     handle.join().unwrap();
+    */
+
 }
 
 fn largest_smallest(){
@@ -132,4 +137,19 @@ fn channels() -> (mpsc::Receiver<String>, thread::JoinHandle<()>) {
     });
 
     (rx, handle)
+}
+
+fn filter_even(){
+
+
+    let numbers = vec![1,2,3,4,5];
+    let doubled_even: Vec<i32> = numbers
+        .iter()
+        .filter(|&&x| x % 2 == 0)
+        .map(|&x| x * 2)
+        .collect();
+
+    println!("Original numbers: {:?}", numbers);
+    println!("Doubled even numbers: {:?}", doubled_even);
+
 }
