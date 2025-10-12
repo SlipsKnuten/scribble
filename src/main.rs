@@ -13,7 +13,8 @@ fn main() {
     //largest_smallest();
     //duplicates();
     //sum_of_even();
-    filter_even();
+    //filter_even();
+    traffic();
 
     /*
     let (rx, handle) = channels();
@@ -152,4 +153,21 @@ fn filter_even(){
     println!("Original numbers: {:?}", numbers);
     println!("Doubled even numbers: {:?}", doubled_even);
 
+}
+
+fn traffic(){
+
+    enum TrafficLight {
+        Red,
+        Yellow,
+        Green,
+    }
+
+    let traffic_light = TrafficLight::Red;
+
+    match traffic_light {
+        TrafficLight::Red => println!("Stop!"),
+        TrafficLight::Yellow => println!("Slow down!"),
+        TrafficLight::Green => println!("Gogogogo!"),
+    }
 }
