@@ -14,7 +14,8 @@ fn main() {
     //duplicates();
     //sum_of_even();
     //filter_even();
-    traffic();
+    //traffic();
+    structs();
 
     /*
     let (rx, handle) = channels();
@@ -170,4 +171,23 @@ fn traffic(){
         TrafficLight::Yellow => println!("Slow down!"),
         TrafficLight::Green => println!("Gogogogo!"),
     }
+}
+
+fn structs(){
+    struct Rectangle {
+        width: u32,
+        height: u32
+ 
+
+    }
+
+    impl Rectangle{
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+
+    let result = Rectangle {width: 30, height: 60};
+    println!("The area of the rectangle is {} square pixels.", result.area());
+
 }
