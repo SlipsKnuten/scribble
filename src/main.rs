@@ -15,7 +15,9 @@ fn main() {
     //sum_of_even();
     //filter_even();
     //traffic();
-    structs();
+    //structs();
+    //boxes();
+    boxes_enums();
 
     /*
     let (rx, handle) = channels();
@@ -174,11 +176,10 @@ fn traffic(){
 }
 
 fn structs(){
+
     struct Rectangle {
         width: u32,
         height: u32
- 
-
     }
 
     impl Rectangle{
@@ -190,4 +191,40 @@ fn structs(){
     let result = Rectangle {width: 30, height: 60};
     println!("The area of the rectangle is {} square pixels.", result.area());
 
+}
+
+fn boxes(){
+    let my_box = Box::new(1);
+    println!("Value of box: {}", my_box);
+}
+
+fn boxes_enums() {
+    enum List {
+        Cons(i32, Box<List>),
+        Nil,
+    }
+
+    impl List {
+        fn len(&self) -> u32 {
+            match *self {
+                List::Cons(_, ref tail) => 1 + tail.len(),
+                List::Nil => 0,
+            }
+        }
+
+        fn print(&self) {
+            match *self {
+                List::Cons(head, ref tail) => {
+                    println!("{}", head);
+                    tail.print();
+                }
+                List::Nil => {}
+            }
+        }
+    }
+
+    let list = List::Cons(1, Box::new(List::Cons(2, Box::new(List::Nil))));
+    println!("Length: {}", list.len());
+    println!("Contents:");
+    list.print();
 }
