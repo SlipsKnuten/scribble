@@ -1,6 +1,11 @@
 use rand::Rng;
 use chrono::Local;
+use std::env::args;
 use std::io;
+use std::io::prelude::*;
+use std::fs::File;
+use std::io::Read;
+
 
 use std::sync::mpsc::{Sender, Receiver};
 use std::sync::mpsc;
@@ -17,9 +22,13 @@ fn main() {
     //traffic();
     //structs();
     //boxes();
-    boxes_enums();
+    //boxes_enums();
+    word_count();
 
     /*
+
+    channels
+
     let (rx, handle) = channels();
     let received = rx.recv().expect("Failed to receive message");
     println!("Message received: {}", received);
@@ -227,4 +236,17 @@ fn boxes_enums() {
     println!("Length: {}", list.len());
     println!("Contents:");
     list.print();
+}
+
+fn word_count() -> std::io::Result<()> {
+    let mut file = File::open("input.txt")?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    let words = contents.split_whitespace();
+    let count = words.count();
+
+    println!("Words: {}", count);
+
+    Ok(())
 }
