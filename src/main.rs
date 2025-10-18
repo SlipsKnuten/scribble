@@ -23,7 +23,8 @@ fn main() {
     //structs();
     //boxes();
     //boxes_enums();
-    word_count();
+    //word_count();
+    todo_list();
 
     /*
 
@@ -249,4 +250,42 @@ fn word_count() -> std::io::Result<()> {
     println!("Words: {}", count);
 
     Ok(())
+}
+
+fn todo_list() {
+    let mut tasks: Vec<String> = Vec::new();
+
+    loop {
+        println!("\n1) Add task");
+        println!("2) Show tasks");
+        println!("3) Exit");
+        print!("> ");
+        io::stdout().flush().expect("flush failed");
+
+        let mut choice = String::new();
+        io::stdin().read_line(&mut choice).expect("Failed to read");
+
+        match choice.trim() {
+            "1" => {
+                let mut task = String::new();
+                println!("Enter task:");
+                io::stdin().read_line(&mut task).expect("Failed to read task");
+                tasks.push(task.trim().to_string());
+                println!("Task added!");
+            }
+            "2" => {
+                println!("\nYour TODO list:");
+                for (i, task) in tasks.iter().enumerate() {
+                    println!("{}: {}", i + 1, task);
+                }
+            }
+            "3" => {
+                println!("Exiting");
+                break;
+            }
+            _ => {
+                println!("Invalid option, please type 1, 2 or 3");
+            }
+        }
+    }
 }
