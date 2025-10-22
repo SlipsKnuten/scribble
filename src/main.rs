@@ -301,3 +301,23 @@ fn error_handling() {
         None => println!("Error: overflow occured"),
     }
 }
+
+fn fizzbuzz (){
+    let numbers: Vec<i32> = (1..=100).collect();
+    let (fizz, buzz, fizzbuzz) = ("Fizz", "Buzz", "FizzBuzz");
+    
+    for i in numbers {
+        if i % 15 == 0 {
+            println!("{}", fizzbuzz);
+        }
+        else if i % 5 == 0 {
+            println!("{}", buzz);
+        }
+        else if i % 3 == 0 {
+            println!("{}", fizz);
+        }
+        else {
+            println!("{}", i);
+        }
+    }
+}
