@@ -24,7 +24,9 @@ fn main() {
     //boxes();
     //boxes_enums();
     //word_count();
-    todo_list();
+    //todo_list();
+    error_handling();
+
 
     /*
 
@@ -287,5 +289,15 @@ fn todo_list() {
                 println!("Invalid option, please type 1, 2 or 3");
             }
         }
+    }
+}
+
+fn error_handling() {
+    let a: i32 = 5;
+    let b = i32::MAX;
+
+    match a.checked_add(b) {
+        Some(result) => println!("Result: {}", result),
+        None => println!("Error: overflow occured"),
     }
 }
