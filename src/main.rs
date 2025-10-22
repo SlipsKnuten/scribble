@@ -1,12 +1,19 @@
+use axum::extract::ws::WebSocket;
+use axum::extract::ws::Message;
+use axum::extract::WebSocketUpgrade;
+use axum::response::IntoResponse;
+use axum::routing::get;
+use axum::Router;
+
 use rand::Rng;
 use chrono::Local;
+
 use std::env::args;
 use std::io;
 use std::io::prelude::*;
 use std::fs::File;
 use std::io::Read;
-
-
+use std::net::TcpListener;
 use std::sync::mpsc::{Sender, Receiver};
 use std::sync::mpsc;
 use std::thread;
@@ -25,7 +32,8 @@ fn main() {
     //boxes_enums();
     //word_count();
     //todo_list();
-    error_handling();
+    //error_handling();
+    websocket();
 
 
     /*
@@ -320,4 +328,53 @@ fn fizzbuzz (){
             println!("{}", i);
         }
     }
+}
+
+#[tokio::main]
+async fn websocket() {
+
+    let router = Router::new()
+        .route("/ws", get(websocket_upgrade))
+        .route("/", get(whalecum));    
+
+    let addr = "127.0.0.1:3000";
+    let tcplistener = tokio::net::TcpListener::bind(addr)
+        .await
+        .unwrap();
+
+
+    axum::serve(tcplistener, router).await.unwrap();
+
+}
+
+async fn websocket_upgrade(ws: WebSocketUpgrade) -> impl IntoResponse {
+    ws.on_upgrade(handle_messages_to_socket)
+}
+
+async fn handle_messages_to_socket(mut socket: WebSocket) {
+    while let Some(msg) = socket.recv().await {
+        let msg = if let Ok(msg) = msg {
+            msg
+        } else {
+            return;
+        };
+
+        match msg {
+            Message::Text(text) => {
+                let response = format!("You said: {}", text);
+                if socket.send(Message::Text(response.into())).await.is_err() {
+                    return;
+                }
+            }
+            Message::Close(_) => {
+                return;
+            }
+            _ => {}
+        }
+    }
+}
+
+async fn whalecum() -> impl IntoResponse {
+    let msg = "Whalecum!";
+    return msg;
 }
